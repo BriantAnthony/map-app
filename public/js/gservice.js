@@ -22,7 +22,7 @@ angular.module('gservice', [])
         // Functions
         // --------------------------------------------------------------
         // Refresh the Map with new data. Function will take new latitude and longitude coordinates.
-        googleMapService.refresh = function(latitude, longitude){
+        googleMapService.refresh = function(latitude, longitude, filteredResults){
 
             // Clears the holding array of locations
             locations = [];
@@ -31,15 +31,28 @@ angular.module('gservice', [])
             selectedLat = latitude;
             selectedLong = longitude;
 
-            // Perform an AJAX call to get all of the records in the db.
-            $http.get('/api/users').success(function(response){
+            // If filter results are provided, refresh
+            if(filteredResults){
 
-                // Convert the results into Google Map Format
-                locations = convertToMapPoints(response);
+                // Then convert the filtered results into map points.
+                locations = convertToMapPoints(filteredResults);
 
-                // Then initialize the map.
-                initialize(latitude, longitude);
+                // initialize map
+                initialize(latitude, longitude, true);
+            }
+            else {
+
+                // Perform an AJAX call to get all of the records in the db.
+                $http.get('/api/users').success(function(response){
+
+                    // Convert the results into Google Map Format
+                    locations = convertToMapPoints(response);
+
+                    // Then initialize the map.
+                    initialize(latitude, longitude);
             }).error(function(){});
+
+            }
         };
 
         // Private Inner Functions
@@ -80,7 +93,7 @@ angular.module('gservice', [])
     };
 
 // Initializes the map
-var initialize = function(latitude, longitude) {
+var initialize = function(latitude, longitude, filter) {
 
     // Uses the selected lat, long as starting point
     var myLatLng = {lat: selectedLat, lng: selectedLong};
@@ -95,13 +108,21 @@ var initialize = function(latitude, longitude) {
         });
     }
 
+    // If a filter was used set icons yellow, otherwise blue
+    if(filter){
+        icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+    }
+    else {
+        icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    }
+
     // Loop through each location in the array and place a marker
     locations.forEach(function(n, i){
         var marker = new google.maps.Marker({
             position: n.latlon,
             map: map,
             title: "Big Map",
-            icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            icon: icon,
         });
 
         // For each marker created, add a listener that checks for clicks
@@ -122,6 +143,7 @@ var initialize = function(latitude, longitude) {
         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
     lastMarker = marker;
+
     map.panTo(new google.maps.LatLng(latitude, longitude));
 
     // Click on the map move the bouncing red marker

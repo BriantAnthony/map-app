@@ -27,4 +27,64 @@ module.exports = function(app) {
 			res.json(req.body);
 		});
 	});
+
+	// Retrieves JSON for all users who meet certain query conditions
+	app.post('/api/query/', function(req, res) {
+
+		// Grab all of the query parameter from the body
+		var lat = req.body.latitude;
+		var long = req.body.longitude;
+		var distance = req.body.distance;
+		var male = req.body.male;
+		var female = req.body.female;
+		var other = req.body.other;
+		var minAge = req.body.minAge;
+		var maxAge = req.body.maxAge;
+		var favLang = req.body.favLang;
+		var reqVerified = req.body.reqVerified;
+
+		// Opens a generic Mongoose Query. 
+		var query = User.find({});
+
+		// Max distance filter
+		if(distance){
+
+			// Geospatial query
+			query = query.where('location').near({ center: {type: 'Point', coordinates: [long, lat]},
+
+				maxDistance: distance * 1609.34, spherical: true});
+		}
+
+		// Gender Options Filter
+		if(male || female || other){
+			query.or([{ 'gender': male }, { 'gender': female }, { 'gender': other }]);
+		}
+
+		// Minimum Age Filter
+		if(minAge){
+			query = query.where('age').gte(minAge);
+		}
+
+		// Max Age Filter
+		if(maxAge){
+			query = query.where('age').lte(maxAge);
+		}
+
+		// Favorite Language Filter
+		if(favLang){
+			query = query.where('favlang').quals(favlang);
+		}
+
+		// Include HTML verified Location Filter
+		if(reqVerified){
+			query = query.where('htmlverified').equals('Yes');
+		}
+
+		// Execute Query and Return results
+		query.exec(function(err, users) {
+			if(err)
+				res.send(err);
+			res.json(users);
+		});
+	});
 };
