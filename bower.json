@@ -1,0 +1,26 @@
+{
+  "name": "GoogleMapsApp",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Briant Anthony"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/BriantAnthony/exercises",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "1.4.6",
+    "angularjs-geolocation": "0.1.1",
+    "bootstrap": "3.3.5",
+    "holderjs": "~2.9.0",
+    "modernizr": "3.0.0"
+  }
+}
