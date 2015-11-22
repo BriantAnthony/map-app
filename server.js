@@ -8,7 +8,7 @@ var methodOverride  = require('method-override');
 var app             = express();
 
 // Configuration
-mongoose.connect('mongodb://demo:demo123@ec2-52-23-165-85.compute-1.amazonaws.com:27017/MeanMapApp');
+mongoose.connect('mongodb://mapAdmin:demo123@ec2-52-23-165-85.compute-1.amazonaws.com:27017/MeanMapApp');
 
 // Logging and Parsing
 app.use(express.static(__dirname + '/public'));
