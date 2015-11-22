@@ -76,8 +76,8 @@ module.exports = function(app) {
 		}
 
 		// Include HTML verified Location Filter
-		if(reqVerified){
-			query = query.where('htmlVerified').equals(true);
+		if(reqverified){
+			query = query.where('htmlverified').equals(true);
 		}
 
 		// Execute Query and Return results
