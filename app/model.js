@@ -8,15 +8,18 @@ var UserSchema = new Schema({
 	age: {type: Number, required: true},
 	favlang: {type: String, required: true},
 	location: {type: [Number], required: true}, // [Long, Lat]
-	htmlverified: String,
+	htmlverified: Boolean,
 	created_at: {type: Date, default: Date.now},
 	updated_at: {type: Date, default: Date.now}
 });
 
 // Sets the created_at parameter equal to the current time
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next){
 	now = new Date();
 	this.updated_at = now;
+	this.gender = this.gender.toLowerCase();
+	this.favlang = this.favlang.toLowerCase();
+
 	if(!this.created_at) {
 		this.created_at = now
 	}

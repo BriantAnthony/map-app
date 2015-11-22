@@ -40,7 +40,7 @@ module.exports = function(app) {
 		var other = req.body.other;
 		var minAge = req.body.minAge;
 		var maxAge = req.body.maxAge;
-		var favLang = req.body.favLang;
+		var favlang = req.body.favlang;
 		var reqVerified = req.body.reqVerified;
 
 		// Opens a generic Mongoose Query. 
@@ -71,13 +71,13 @@ module.exports = function(app) {
 		}
 
 		// Favorite Language Filter
-		if(favLang){
-			query = query.where('favlang').quals(favlang);
+		if(favlang){
+			query = query.where('favlang').equals(favlang);
 		}
 
 		// Include HTML verified Location Filter
 		if(reqVerified){
-			query = query.where('htmlverified').equals('Yes');
+			query = query.where('htmlVerified').equals(true);
 		}
 
 		// Execute Query and Return results

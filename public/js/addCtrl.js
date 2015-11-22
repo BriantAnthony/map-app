@@ -9,7 +9,7 @@ addCtrl.controller('addCtrl',['$scope', '$http','$rootScope', 'geolocation', 'gs
 	// Set initial coordinates to the center of the US
 	$scope.formData.latitude = 39.500;
 	$scope.formData.longitude = -98.350;
-
+	
 	// Get User's actual coordinates based on html5 at window load
 	geolocation.getLocation().then(function(data) {
 		// set the latitude and longitude equal to html5 coordinates
@@ -20,7 +20,7 @@ addCtrl.controller('addCtrl',['$scope', '$http','$rootScope', 'geolocation', 'gs
 		$scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
 
 		// Dislay message confirming that the coordinated verified.
-		$scope.formData.htmlverified = 'Yes';
+		$scope.formData.htmlverified = true;
 
 		gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
 	});
@@ -31,7 +31,7 @@ addCtrl.controller('addCtrl',['$scope', '$http','$rootScope', 'geolocation', 'gs
 		$scope.$apply(function() {
 			$scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
 			$scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
-			$scope.formData.htmlverified = 'No';
+			$scope.formData.htmlverified = false;
 		});
 	});
 

@@ -40,7 +40,7 @@ var queryCtrl = angular.module('queryCtrl', ['geolocation', 'gservice']);
 				other: $scope.formData.other,
 				minAge: $scope.formData.minAge,
 				maxAge: $scope.formData.maxAge,
-				favLang: $scope.formData.favLang,
+				favlang: $scope.formData.favlang,
 				reqVerified: $scope.formData.reqVerified
 			};
 
