@@ -41,7 +41,7 @@ module.exports = function(app) {
 		var minAge = req.body.minAge;
 		var maxAge = req.body.maxAge;
 		var favlang = req.body.favlang;
-		var reqVerified = req.body.reqVerified;
+		var reqverified = req.body.reqverified;
 
 		// Opens a generic Mongoose Query. 
 		var query = User.find({});

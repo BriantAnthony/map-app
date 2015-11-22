@@ -9,12 +9,11 @@ addCtrl.controller('addCtrl',['$scope', '$http','$rootScope', 'geolocation', 'gs
 	// Set initial coordinates to the center of the US
 	$scope.formData.latitude = 39.500;
 	$scope.formData.longitude = -98.350;
-	
+
 	// Get User's actual coordinates based on html5 at window load
 	geolocation.getLocation().then(function(data) {
 		// set the latitude and longitude equal to html5 coordinates
 		coords = {lat:data.coords.latitude, long:data.coords.longitude};
-
 		// Display coordinates in location textboxes rounded to three decimal points
 		$scope.formData.longitude = parseFloat(coords.long).toFixed(3);
 		$scope.formData.latitude = parseFloat(coords.lat).toFixed(3);

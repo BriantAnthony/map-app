@@ -11,10 +11,12 @@ var queryCtrl = angular.module('queryCtrl', ['geolocation', 'gservice']);
 		// Get User's HTML5 coordinates
 		geolocation.getLocation().then(function(data){
 			coords = {lat:data.coords.latitude, long:data.coords.longitude};
-
+			console.log(coords);
 			// Set lat and long equal to HTML5 coordinates
 			$scope.formData.longitude = parseFloat(coords.long).toFixed(3);
 			$scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
+
+			gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
 		});
 
 		// Get coordinated based on mouse click
@@ -41,7 +43,7 @@ var queryCtrl = angular.module('queryCtrl', ['geolocation', 'gservice']);
 				minAge: $scope.formData.minAge,
 				maxAge: $scope.formData.maxAge,
 				favlang: $scope.formData.favlang,
-				reqVerified: $scope.formData.reqVerified
+				reqverified: $scope.formData.reqverified
 			};
 
 			// Post the queryBody to /query API route
