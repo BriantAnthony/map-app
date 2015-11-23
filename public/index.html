@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- Declares meanMapApp as the starting Angular module -->
-<html class="no-js" ng-app="meanMapApp">
+<html class="no-js" ng-app="app">
 <head>
     <meta charset="utf-8">
     <title>MEAN Google Map App</title>
@@ -22,10 +22,11 @@
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
 
         <!-- Angular Scripts -->
-    <script src="js/app.js"></script>
-    <script src="js/addCtrl.js"></script>
-    <script src="js/gservice.js"></script>
-    <script src="js/queryCtrl.js"></script>
+    <script src="core/app.js"></script>
+    <script src="map/map.module.js"></script>
+    <script src="map/map.users.controller.js"></script>
+    <script src="map/map.gmaps.service.js"></script>
+    <script src="map/map.query.controller.js"></script>
 
 </head>
 <body>
