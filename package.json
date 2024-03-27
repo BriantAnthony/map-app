@@ -2,7 +2,7 @@
 	"name": "GoogleMapsApp",
 	"main": "server.js",
 	"dependencies": {
-		"express": "~4.7.2",
+		"express": "~4.19.2",
 		"mongoose": "~4.1.0",
 		"morgan": "~1.2.2",
 		"body-parser": "~1.5.2",
